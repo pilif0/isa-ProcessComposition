@@ -1,0 +1,12 @@
+chapter AFP
+
+session "ProcessComposition_ILL" in ProcessILL = "ProcessComposition" +
+  options [timeout = 600]
+  sessions
+    "ILL"
+  theories
+    ResTermILL
+    ResourceILL
+    ProcessILL
+  document_files
+    "root.tex"
