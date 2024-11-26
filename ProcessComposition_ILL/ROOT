@@ -1,6 +1,6 @@
 chapter AFP
 
-session "ProcessComposition_ILL" in ProcessILL = "ProcessComposition" +
+session "ProcessComposition_ILL" = "ProcessComposition" +
   options [timeout = 600]
   sessions
     "ILL"
