@@ -13,6 +13,7 @@ session "ProcessComposition" = "HOL" +
     ResNormCompare
     Resource
     Process
+    ProcessPaths
     CopyableElimination
   document_files
     "root.tex"
