@@ -519,11 +519,6 @@ begin
 notation spec ("(_): (_) \<rightarrow> (_)" [1000, 60] 60)
 end
 
-bundle spec_notation_undo
-begin
-no_notation spec ("(_): (_) \<rightarrow> (_)" [1000, 60] 60)
-end
-
 text\<open>Set up notation bundles to be imported in a controlled way, along with inverses to undo them\<close>
 
 text\<open>
@@ -537,13 +532,6 @@ begin
 no_notation Shuffle (infixr "\<parallel>" 80)
 notation Seq (infixr ";;" 55)
 notation Par (infixr "\<parallel>" 65)
-end
-
-bundle process_notation_undo
-begin
-notation Shuffle (infixr "\<parallel>" 80)
-no_notation Seq (infixr ";;" 55)
-no_notation Par (infixr "\<parallel>" 65)
 end
 
 end
