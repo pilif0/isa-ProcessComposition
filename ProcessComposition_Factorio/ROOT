@@ -1,0 +1,15 @@
+chapter AFP
+
+session "ProcessComposition_Factorio" = "ProcessComposition" +
+  options [timeout = 600]
+  theories
+    Location
+    Item
+    Machine
+    Manufacturing
+    Electricity
+    TestingPrelims
+    FourGears
+    CraftWagon
+  document_files
+    "root.tex"

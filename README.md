@@ -7,11 +7,13 @@ As part of the verification we derive simple conditions on the compositions whic
 We describe an earlier version of this formalisation in our article [Linear Resources in Isabelle/HOL](https://doi.org/10.1007/s10817-024-09698-2), which also includes a formalisation of manufacturing processes in the simulation game Factorio.
 
 This is the development version of our Archive of Formal Proofs [entry](https://www.isa-afp.org/entries/ProcessComposition.html).
+It contains updates, work in progress and examples.
 
 ## Structure
 This formalisation consists of the following sessions:
 - `ProcessComposition` is the base theory of linear resources and process compositions.
 - `ProcessComposition_ILL` translates concepts from the base theory into intuitionistic linear logic to demonstrate linearity of valid process compositions.
+- `ProcessComposition_Factorio` is a basic formalisation of manufacturing in the simulation game [Factorio](https://www.factorio.com/) as an example use of process compositions.
 
 ## Requirements
 This formalisation is tested with Isabelle 2024, but should work with most modern versions.
