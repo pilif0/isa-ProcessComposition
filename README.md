@@ -14,6 +14,7 @@ This formalisation consists of the following sessions:
 - `ProcessComposition` is the base theory of linear resources and process compositions.
 - `ProcessComposition_ILL` translates concepts from the base theory into intuitionistic linear logic to demonstrate linearity of valid process compositions.
 - `ProcessComposition_Factorio` is a basic formalisation of manufacturing in the simulation game [Factorio](https://www.factorio.com/) as an example use of process compositions.
+- `ProcessComposition_Marking` demonstrates resource and process refinement by formalising two views of course work marking.
 
 ## Requirements
 This formalisation is tested with Isabelle 2024, but should work with most modern versions.

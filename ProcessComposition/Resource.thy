@@ -438,6 +438,14 @@ lemma resource_par_nested [simp]:
   "Parallel (xs @ a \<odot> b # ys) = Parallel (xs @ a # b # ys)"
   using resource_decompose resource_par_nested_start by blast
 
+text\<open>Folding @{const resource_par} over a list of resources recovers @{const Parallel}\<close>
+lemma fold_resource_par [simp]:
+  "fold (\<odot>) xs y = Parallel (rev xs @ [y])"
+  by (induct xs arbitrary: y) simp_all
+lemma foldr_resource_par [simp]:
+  "foldr (\<odot>) xs y = Parallel (xs @ [y])"
+  by (induct xs arbitrary: y) simp_all
+
 text\<open>
   Lifted constructor @{const Parallel}, which does not have automatic code equations, can be given
   code equations using this resource product

@@ -1,0 +1,9 @@
+chapter AFP
+
+session "ProcessComposition_Marking" = "ProcessComposition" +
+  options [timeout = 600]
+  theories
+    MarkingAbstract
+    MarkingRefined
+  document_files
+    "root.tex"
