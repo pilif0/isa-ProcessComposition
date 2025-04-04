@@ -119,6 +119,7 @@ code_datatype abstract.lres.Students abstract.lres.Submissions
 code_datatype abstract.cres.Instructions
 
 lemmas [code] =
+  abstract.lres.case
   abstract.markingProcess_def
   abstract.collectSubs_def
   abstract.markAll_def
