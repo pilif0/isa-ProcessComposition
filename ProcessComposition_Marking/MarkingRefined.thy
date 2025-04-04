@@ -356,13 +356,6 @@ lemma equal_lres_eq:
   "equal_lres x y = (x = y)"
   by (cases x ; cases y ; simp)
 
-primrec equal_cres :: "cres \<Rightarrow> cres \<Rightarrow> bool"
-  where "equal_cres Instructions y = True"
-
-lemma equal_cres_eq:
-  "equal_cres x y = (x = y)"
-  by (metis (full_types) refined.equal_cres.simps abstract.cres.exhaust)
-
 end
 
 instantiation refined.lres :: (equal) equal
@@ -376,17 +369,6 @@ proof
     using refined.equal_lres_eq equal_lres_def by simp
 qed
 end
-instantiation abstract.cres :: equal
-begin
-definition [simp]: "equal_cres \<equiv> refined.equal_cres"
-
-instance
-proof
-  fix x y :: abstract.cres
-  show "equal_class.equal x y = (x = y)"
-    using refined.equal_cres_eq equal_cres_def by simp
-qed
-end
 
 code_datatype refined.lres.Student refined.lres.Submission refined.lres.Mark
   refined.lres.MarkSubmitted refined.lres.MarksReleased
@@ -394,7 +376,6 @@ code_datatype refined.lres.Student refined.lres.Submission refined.lres.Mark
 lemmas [code] =
   refined.lres.case
   refined.equal_lres.simps
-  refined.equal_cres.simps
   refined.markingProcess_def
   refined.collectionSplit_def
   refined.collectionSplit_cond_def

@@ -63,11 +63,55 @@ qualified lemma markingProcess:
 
 end
 
-end
-
 subsection\<open>Code Generation\<close>
 
+primrec equal_lres :: "abstract.lres \<Rightarrow> abstract.lres \<Rightarrow> bool"
+  where
+    "equal_lres abstract.Students y = (case y of abstract.Students \<Rightarrow> True | _ \<Rightarrow> False)"
+  | "equal_lres abstract.Submissions y = (case y of abstract.Submissions \<Rightarrow> True | _ \<Rightarrow> False)"
+  | "equal_lres abstract.Marks y = (case y of abstract.Marks \<Rightarrow> True | _ \<Rightarrow> False)"
+  | "equal_lres abstract.MarksSubmitted y =
+      (case y of abstract.MarksSubmitted \<Rightarrow> True | _ \<Rightarrow> False)"
+  | "equal_lres abstract.MarksReleased y = (case y of abstract.MarksReleased \<Rightarrow> True | _ \<Rightarrow> False)"
+
+lemma equal_lres_eq:
+  "equal_lres x y = (x = y)"
+  by (cases x ; cases y ; simp)
+
+primrec equal_cres :: "cres \<Rightarrow> cres \<Rightarrow> bool"
+  where "equal_cres Instructions y = True"
+
+lemma equal_cres_eq:
+  "equal_cres x y = (x = y)"
+  by (metis (full_types) abstract.equal_cres.simps abstract.cres.exhaust)
+
+end
+
 text\<open>We need extra steps to set up code generation from the locale\<close>
+
+instantiation abstract.lres :: equal
+begin
+definition [simp]: "equal_lres \<equiv> abstract.equal_lres"
+
+instance
+proof
+  fix x y :: abstract.lres
+  show "equal_class.equal x y = (x = y)"
+    using abstract.equal_lres_eq equal_lres_def by simp
+qed
+end
+
+instantiation abstract.cres :: equal
+begin
+definition [simp]: "equal_cres \<equiv> abstract.equal_cres"
+
+instance
+proof
+  fix x y :: abstract.cres
+  show "equal_class.equal x y = (x = y)"
+    using abstract.equal_cres_eq equal_cres_def by simp
+qed
+end
 
 code_datatype abstract.lres.Students abstract.lres.Submissions
   abstract.lres.Marks abstract.lres.MarksSubmitted abstract.lres.MarksReleased
@@ -80,5 +124,7 @@ lemmas [code] =
   abstract.markAll_def
   abstract.submitMarks_def
   abstract.releaseMarks_def
+  abstract.equal_lres.simps
+  abstract.equal_cres.simps
 
 end
