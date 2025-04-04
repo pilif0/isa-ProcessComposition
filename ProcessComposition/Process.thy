@@ -335,11 +335,11 @@ primrec par_process_list :: "('a, 'b, 'l, 'm) process list \<Rightarrow> ('a, 'b
 
 lemma par_process_list_input [simp]:
   "input (par_process_list xs) = foldr (\<odot>) (map input xs) Empty"
-  by (induct xs) simp_all
+  by (induct xs) (simp_all del: foldr_resource_par)
 
 lemma par_process_list_output [simp]:
   "output (par_process_list xs) = foldr (\<odot>) (map output xs) Empty"
-  by (induct xs) simp_all
+  by (induct xs) (simp_all del: foldr_resource_par)
 
 lemma par_process_list_valid [simp]:
   "valid (par_process_list xs) = list_all valid xs"
