@@ -44,8 +44,10 @@ text\<open>There is an action to release all of the marks\<close>
 definition "releaseMarks =
   Primitive (Res MarksSubmitted) (Res MarksReleased) STR ''Release Marks'' ()"
 
+lemmas action_defs = releaseMarks_def submitMarks_def markAll_def collectSubs_def
+
 context
-  includes process_notation
+  includes process_notation and spec_notation
 begin
 
 text\<open>
@@ -57,9 +59,8 @@ definition "markingProcess = collectSubs ;; markAll ;; submitMarks ;; releaseMar
 text\<open>Marking process is valid, requires instructions and students and results in submitted marks\<close>
 qualified lemma markingProcess:
   shows "valid markingProcess"
-    and "input markingProcess = Copyable Instructions \<odot> Res Students"
-    and "output markingProcess = Res MarksReleased"
-  by (simp_all add: markingProcess_def releaseMarks_def submitMarks_def markAll_def collectSubs_def)
+    and "(markingProcess): Copyable Instructions \<odot> Res Students \<rightarrow> Res MarksReleased"
+  by (simp_all add: markingProcess_def action_defs)
 
 end
 

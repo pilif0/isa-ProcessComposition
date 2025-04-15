@@ -45,14 +45,19 @@ primrec refinement :: "abstract.lres \<Rightarrow> ('s refined.lres, cres) resou
   | "refinement abstract.MarksSubmitted = Parallel (map (Res \<circ> refined.MarkSubmitted) students)"
   | "refinement abstract.MarksReleased = Res refined.MarksReleased"
 
+context
+  includes spec_notation
+begin
+
 text\<open>Applying this refinement to the abstract marking process remains valid\<close>
-lemma markingProcess_refined:
+lemma markingProcess_refined_resources:
   defines [simp]: "x \<equiv> process_refineRes refinement id abstract.markingProcess"
     shows "valid x"
-      and "input x = Copyable Instructions \<odot> Parallel (map (Resource.Res \<circ> Student) students)"
-      and "output x = Res MarksReleased"
-  by (simp_all add: abstract.markingProcess_def abstract.releaseMarks_def abstract.submitMarks_def
-      abstract.markAll_def abstract.collectSubs_def refine_resource_par)
+      and "(x): Copyable Instructions \<odot> Parallel (map (Resource.Res \<circ> Student) students)
+             \<rightarrow> Res MarksReleased"
+  by (simp_all add: abstract.markingProcess_def abstract.action_defs refine_resource_par)
+
+end
 
 subsection\<open>Refined Collection of Submissions\<close>
 
@@ -326,7 +331,9 @@ definition markingProcess :: "'s proc"
     ( collectionSplit
       ( process_refineRes refinement id abstract.markingProcess)))"
 
-context begin
+context
+  includes spec_notation
+begin
 
 text\<open>
   Refined marking process is still valid and has almost the same input and output, the input
@@ -334,10 +341,10 @@ text\<open>
 \<close>
 qualified lemma markingProcess:
   shows "valid markingProcess"
-    and " input markingProcess
-        = Copyable Instructions \<odot> Parallel (map (Resource.Res \<circ> Student) students)"
-    and "output markingProcess = Res MarksReleased"
-  using markingProcess_refined by (simp_all add: markingProcess_def)
+    and "(markingProcess):
+      Copyable Instructions \<odot> Parallel (map (Resource.Res \<circ> Student) students) \<rightarrow>
+      Res MarksReleased"
+  using markingProcess_refined_resources by (simp_all add: markingProcess_def)
 
 end
 
