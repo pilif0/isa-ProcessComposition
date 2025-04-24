@@ -466,25 +466,18 @@ lemma resource_parallel_res [code_unfold]:
 text\<open>We show that this resource product is a monoid, meaning it is unital and associative\<close>
 lemma resource_par_unitL [simp]:
   "Empty \<odot> x = x"
-proof -
-  have "Parallel [Empty, x] = x"
-    by (metis append_Nil resource_empty resource_parallel_nested resource_singleton)
-  then show ?thesis
-    by (simp add: resource_par_def)
-qed
+  unfolding resource_par_def
+  by (metis append_Nil resource_empty resource_parallel_nested resource_singleton)
 
 lemma resource_par_unitR [simp]:
   "x \<odot> Empty = x"
-proof -
-  have "Parallel [x, Empty] = x"
-    by (metis resource_empty resource_par_is_parallel(1) resource_singleton)
-  then show ?thesis
-    by (simp add: resource_par_def)
-qed
+  unfolding resource_par_def
+  by (metis resource_decompose resource_empty resource_parallel_nested resource_singleton)
 
 lemma resource_par_assoc [simp]:
   "(a \<odot> b) \<odot> c = a \<odot> (b \<odot> c)"
-  by (metis resource_par_def resource_par_is_parallel(1) resource_par_nested_start)
+  unfolding resource_par_def
+  by simp (metis resource_decompose resource_parallel_nested resource_singleton)
 
 text\<open>Resource map passes through resource product\<close>
 lemma resource_par_map [simp]:
