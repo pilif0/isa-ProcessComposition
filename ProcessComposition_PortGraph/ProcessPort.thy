@@ -1,7 +1,7 @@
 theory ProcessPort
   imports
-    ProcessPaths
-    Port
+    ProcessComposition.ProcessPaths
+    PortGraph.PortGraph
 begin
 
 section\<open>Process Ports\<close>
@@ -47,7 +47,7 @@ text\<open>Process ports use just two sides: input and output\<close>
 datatype process_side = In | Out
 hide_const (open) process_side.In process_side.Out
 
-text\<open>This matches the class we define when introducing ports\<close>
+text\<open>This satisfies the class we define when introducing ports\<close>
 instantiation process_side :: side_in_out
 begin
 
@@ -57,6 +57,26 @@ definition "Out = process_side.Out"
 instance
   by standard (simp add: In_process_side_def Out_process_side_def)
 end
+
+text\<open>We use the simplifier to prefer the syntax introduced by the class\<close>
+lemmas [simp] = In_process_side_def[symmetric] Out_process_side_def[symmetric]
+
+text\<open>This set of sides is finite\<close>
+lemma UNIV_process_side [simp]:
+  "UNIV = {In, Out :: process_side}"
+  unfolding In_process_side_def Out_process_side_def
+  by (metis UNIV_eq_I insertI1 insertI2 process_side.exhaust)
+
+instance process_side :: finite
+  by standard simp
+
+text\<open>Any process side not being either input or output is a contradiction\<close>
+lemma process_side_neither [simp]:
+    fixes x :: process_side
+  assumes "x \<noteq> In"
+      and "x \<noteq> Out"
+    shows False
+  using assms by (cases x) simp_all
 
 subsection\<open>Checking Validity\<close>
 
@@ -82,12 +102,14 @@ definition qualified_port_valid ::
 
 text\<open>Any input port generated from the input of a process is valid\<close>
 lemma
-  "port \<in> set (parallelPorts 0 In (input x)) \<Longrightarrow> port_valid port x"
-  by (cases x ; clarsimp simp add: port_valid_def Let_def in_set_zip In_process_side_def)
+  notes [simp del] = In_process_side_def[symmetric]
+  shows "port \<in> set (parallelPorts 0 In (input x)) \<Longrightarrow> port_valid port x"
+  by (cases x ; clarsimp simp add: in_set_zip port_valid_def Let_def In_process_side_def)
 
 text\<open>Any output port generated from the output of a process is valid\<close>
 lemma
-  "port \<in> set (parallelPorts 0 Out (output x)) \<Longrightarrow> port_valid port x"
+  notes [simp del] = Out_process_side_def[symmetric]
+  shows "port \<in> set (parallelPorts 0 Out (output x)) \<Longrightarrow> port_valid port x"
   by (cases x ; clarsimp simp add: port_valid_def Let_def in_set_zip Out_process_side_def)
 
 end

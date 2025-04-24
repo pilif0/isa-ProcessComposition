@@ -1,0 +1,10 @@
+session "ProcessComposition_PortGraph" = "ProcessComposition" +
+  options [timeout = 600]
+  sessions
+    "PortGraph"
+  theories
+    ProcessPG_Util
+    ProcessPort
+    ProcessPortGraph
+    GraphicalLinearity
+    ProcessPGPrint
