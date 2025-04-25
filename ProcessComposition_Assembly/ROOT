@@ -1,0 +1,6 @@
+session ProcessComposition_Assembly = ProcessComposition +
+  options [timeout=600]
+  theories
+    Assembly
+  document_files
+    "root.tex"
