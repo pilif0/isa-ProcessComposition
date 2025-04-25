@@ -1,0 +1,9 @@
+session ProcessComposition_Category = ProcessComposition_PortGraph +
+  options [timeout=600]
+  sessions
+    SymmetricCategory
+  theories
+    ProcessCatSubtype
+    ProcessCategory
+  document_files
+    "root.tex"
