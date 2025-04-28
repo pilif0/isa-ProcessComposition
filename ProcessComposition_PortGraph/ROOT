@@ -9,3 +9,5 @@ session "ProcessComposition_PortGraph" = "ProcessComposition" +
     ProcessPortGraph
     GraphicalLinearity
     ProcessPGPrint
+  document_files
+    "root.tex"
