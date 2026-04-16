@@ -1670,7 +1670,7 @@ lemma normal_rewr_to_empty:
   assumes "normal_rewr (Parallel xs) = Empty"
     shows "remove_all_empty (merge_all_parallel (map normal_rewr xs)) = []"
   using assms normal_rewr_to_parallelise parallelise_to_empty_eq remove_all_empty_result
-  by (metis list_ex_simps(1) res_term.disc(19))
+  by (metis list_ex_Cons_iff res_term.disc(19))
 
 text\<open>
   @{const Parallel} term that normalises to another @{const Parallel} must have had those children
